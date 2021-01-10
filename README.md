@@ -1,5 +1,5 @@
 # api-movies-data
-Java Spring boot Rest API 
+Database of movie searches API
 
 ## Table of contents
 * [General info](#general-info)
