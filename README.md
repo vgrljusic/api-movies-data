@@ -10,7 +10,9 @@ Database of movie searches API
 * [Contact](#contact)
 
 ## General info
-This Rest API is developed using Java language and Spring boot framework. In this project Rest API is programed to make a search which will look in the database for existing data and throw results for a movie which matches the name with search term. Each movie entry has a way of displaying movie details. If a movie is not found locally, it searches for the movie online using one of the available online resources. When a new movie is found, the data of the movie is stored in a local database. Search results can show listings of all movies that match the search criteria with details about the movie. 
+This Rest API is developed using Java language and Spring boot framework. In this project API is programed to make a search which will look in the database for existing data and throw results for a movie which matches the name with search term. Each movie entry has a way of displaying movie details. 
+
+If a movie is not found locally, it searches for the movie online using one of the available online resources. When a new movie is found, the data of the movie is stored in a local database. Search results can show listings of all movies that match the search criteria with details about the movie. 
 While running jar file for first time whole database structure is being initialized using JPA and Hibernate. It also uses external PostgreSQL database to fetch some prerecorded values. 
 
 ## Technologies
@@ -77,7 +79,7 @@ java -jar target/api-movies-data-0.0.1-SNAPSHOT.jar
 
 this runs at port 8080 and hence all endpoints can be accessed starting from http://localhost:8080
 
-6. #### Create database objects
+6. #### Create database objects (If you want some prerecorded values in local database)
 
 In the root application directory (api-movies-data), SQL script file (project_db.sql) is present for populating database with some records
 
@@ -97,7 +99,7 @@ You can use Swagger UI from http://localhost:8080/swagger-ui.html
 
 It has inbuilt functionalities to try out the API without having to install and use Postman 
 
-![image](https://user-images.githubusercontent.com/52451893/104134890-bf9a0100-538c-11eb-9ba4-0ed29cf273ce.png)
+![image](https://user-images.githubusercontent.com/52451893/104135183-b316a800-538e-11eb-9f34-7b46ac37f550.png)
 
 
 
