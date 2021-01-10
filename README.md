@@ -36,7 +36,7 @@ cd api-movies-data
 
 2. #### Install required programs
 
-In order to follow along user needs to have PostgreSQL and preferably Postman. Bellow are short terminal lines for easy installation.
+In order to follow along user needs to have PostgreSQL and Postman (you can use Swagger UI insted of Postman). Bellow are short terminal lines for easy installation.
 ```
 sudo apt update
 sudo snap install postman
@@ -129,7 +129,7 @@ Example of fetching all similarly named movies on http://api.tvmaze.com and find
 
 4. #### GET single movie online
 
-Example of fetching items data. Items are mapped to specific shop's customers 
+Searches for single movie on http://api.tvmaze.com and saves in local database
 
 ![image](https://user-images.githubusercontent.com/52451893/104134555-a001d900-538a-11eb-9d35-98d0adab750f.png)
 
