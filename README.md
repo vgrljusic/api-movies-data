@@ -5,9 +5,8 @@ Java Spring boot Rest API
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup and Installation](#setup-and-installation)
-* [How to use](#how-to-use)
-* [Code Example of usage](#code-examples-of-usage)
-* [Features](#features)
+* [How to use with Swagger UI](#how-to-use-with-Swagger-UI)
+* [How to use with Postman](#how-to-use-with-Postman)
 * [Contact](#contact)
 
 ## General info
@@ -17,19 +16,19 @@ This Rest API is developed using Java language and Spring boot framework. The mo
 * Java - version 11.0.7
 * Spring Boot - version 2.3.2
 * Spring Data JPA - version 2.4.0
-* Spring Security - version 5.4.1
-* JSON Web Tokens - version 0.9.1
 * PostgreSQL - version 13.0.1
 * Apache Maven - version 3.6.0
 * Hibernate ORM - version 5.4.18
+* Springfox Swagger 2- version 2.9.2
+* Jackson datatype jsr310
 
 ## Setup and Installation
 
 1. #### Download or clone the repository from GitHub
 
 ```
-git clone https://github.com/vgrljusic/api-project-data-jwt.git
-cd api-project-data-jwt
+git clone https://github.com/vgrljusic/api-movies-data.git
+cd api-movies-data
 ```
 
 2. #### Install required programs
@@ -43,12 +42,12 @@ sudo apt install postgresql postgresql-contrib
 
 3. #### Setup database project
 
-In the root application directory (api-project-data-jwt), SQL script file (project_setup.sql) is present for creating database. Note: if you already have other user you can use that insted of postgres user referenced bellow
+In the root application directory (api-movies-data), SQL script file (project_setup.sql) is present for creating database. Note: if you already have other user you can use that insted of postgres user referenced bellow
 
 ##### Run the script using psql client: 
 
 ```
-cd Documents/api-project-data-jwt
+cd Documents/api-movies-data
 psql -U postgres --file project_setup.sql
 # promt to enter postgres user password (usuall password is postgres)
 ```
@@ -58,7 +57,7 @@ psql -U postgres --file project_setup.sql
 If you have changed defualt user for creating database with some different username and password, update the src/main/resources/application.properties file accordingly:
 
 ```
-spring.jpa.hibernate.ddl-auto=create #for first time running MUST be set to create, for every consecutive time set to update
+spring.jpa.hibernate.ddl-auto=create #for first time running MUST be set to create, for every consecutive time set to update (if you care to have permanent database, otherwise it is deleted after every consecutive jar run)
 spring.datasource.url=jdbc:postgresql://localhost:5432/project_db
 spring.datasource.username=postgres
 spring.datasource.password=postgres
@@ -70,97 +69,70 @@ spring.datasource.password=postgres
 If you download/clone repo elsewhere, change path update accordingly
 
 ```
-cd Documents/api-project-data-jwt
+cd Documents/api-movies-data
 mvn clean install
-java -jar target/api-project-data-0.0.1-SNAPSHOT.jar
+java -jar target/api-movies-data-0.0.1-SNAPSHOT.jar
 ```
 
 this runs at port 8080 and hence all enpoints can be accessed starting from http://localhost:8080
 
 6. #### Create database objects
 
-In the root application directory (api-project-data-jwt), SQL script file (project_db.sql) is present for populating database with some records
+In the root application directory (api-movies-data), SQL script file (project_db.sql) is present for populating database with some records
 
 ##### Run the script using psql client: 
 
 ```
-cd Documents/api-project-data-jwt
+cd Documents/api-movies-data
 psql -U postgres --file project_db.sql
 ```
 
-## How to use
-
-1. #### Authentication falied
-
-When trying to use application without providing right credentials we are access denied 
-
-![image](https://user-images.githubusercontent.com/52451893/97893829-11416200-1d32-11eb-87d4-e3dcbca12951.png)
-
-2. #### Get JWT token
-
-In order to get JWT token for further authentication on http://localhost:8080/authenticate POST username:postgers password:postgres 
-
-![image](https://user-images.githubusercontent.com/52451893/97894613-01764d80-1d33-11eb-979a-b7444896b520.png)
-
-3. #### Provide JWT token
-
-In Headers tab set KEY to Authorization and VALUE Bearer {jwt}
-
-![image](https://user-images.githubusercontent.com/52451893/97894218-8d3baa00-1d32-11eb-9866-e7ee6956173a.png)
-
-4. #### GET shops
-
-Example of fetching shops data
-
-![image](https://user-images.githubusercontent.com/52451893/97894794-38e4fa00-1d33-11eb-9020-45788c2971fe.png)
+## How to use with Swagger UI
 
 
-5. #### GET customers
+## How to use with Postman
 
-Example of fetching customers data. Items are mapped to specific shop 
 
-![image](https://user-images.githubusercontent.com/52451893/97971354-2a462380-1dc3-11eb-9ced-b60132bfef73.png)
+1. #### Provide Headers
 
-6. #### GET items
+In Headers tab set KEY to Content-Type and VALUE application/json
+
+![image](https://user-images.githubusercontent.com/52451893/104134226-9aa38f00-5388-11eb-8786-b5ade1411f51.png)
+
+
+2. #### POST items
+
+In order to insert custom new movie in local database use JSON object (provide name and summary)
+
+![image](https://user-images.githubusercontent.com/52451893/104134388-78f6d780-5389-11eb-9a03-22ed46dfa7f7.png)
+
+3. #### GET all movies in local database
+
+Example of fetching all movies in local database
+
+![image](https://user-images.githubusercontent.com/52451893/104134432-bc514600-5389-11eb-8cd4-851123dc5778.png)
+
+
+4. #### GET all movies online
+
+Example of fetching all similarly named movies on http://api.tvmaze.com and find out more about their plot
+
+![image](https://user-images.githubusercontent.com/52451893/104134474-fd495a80-5389-11eb-832e-2424d37778e6.png)
+
+
+5. #### GET single movie online
 
 Example of fetching items data. Items are mapped to specific shop's customers 
 
-![image](https://user-images.githubusercontent.com/52451893/97894839-47cbac80-1d33-11eb-9351-f5b1f1806990.png)
+![image](https://user-images.githubusercontent.com/52451893/104134555-a001d900-538a-11eb-9d35-98d0adab750f.png)
 
-7. #### POST items
+6. #### GET single movies in local database
 
-In order to insert new items in JSON object provide one of available user (or insert new customer and then repeat)
+Example of searching for single movie on http://api.tvmaze.com, afterwards it saves it in local database
 
-![image](https://user-images.githubusercontent.com/52451893/97894896-5d40d680-1d33-11eb-94ad-6c3d61e1f3a1.png)
+![image](https://user-images.githubusercontent.com/52451893/104134588-d8091c00-538a-11eb-8c2a-0cf0bbaae3ce.png)
 
-8. #### PUT items
 
-If you like to change some values, you can do that too (for shops, customers, items)
-
-![image](https://user-images.githubusercontent.com/52451893/97894958-70ec3d00-1d33-11eb-9545-ca83d36dac3b.png)
-
-9. #### DELETE customers
-
-Removing data is also acceptable
-
-![image](https://user-images.githubusercontent.com/52451893/97895018-82cde000-1d33-11eb-99c5-a2cf86f7bb3c.png)
-
-## Code Examples of usage:
-With recived data use SQL querys to calculate distances bettween shops and customers
-
-```
-SELECT ST_Distance(
-ST_GeomFromText((SELECT geom FROM shop WHERE id = 'Instar'), 3765),
-ST_GeomFromText((SELECT geom FROM customer WHERE id = 'Valentino Grljušić'), 3765)
-);
-```
-
-## Features
-List of features ready 
-* Read data
-* Create data
-* Update data
-* Delete data
 
 ## Contact
 Created by [@vgrljusic](https://www.linkedin.com/in/vgrljusic/) - feel free to contact me!
